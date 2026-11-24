@@ -188,6 +188,7 @@ body {
   font-size: 0.9rem;
 }
 
+.top-action-bar .btn-ghost,
 .top-action-bar .btn-reset {
   flex: 0 1 auto;
 }
@@ -244,11 +245,19 @@ body {
 }
 
 .panel-content h2 {
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   font-size: 1.15rem;
   text-align: center;
   padding-bottom: 8px;
   border-bottom: 2px dashed var(--border-soft);
+}
+
+/* 道具箱内の「おまかせ／いっきにぬる」ボタン */
+.panel-auto-btn {
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
 }
 
 /* 16色クレヨングリッド */

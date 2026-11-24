@@ -319,22 +319,13 @@ export function App() {
           {/* ステップ案内バナー直下のアクションボタンバー */}
           <div className="top-action-bar">
             {step === 1 && (
-              <>
-                <button
-                  type="button"
-                  className="btn btn-sub"
-                  onClick={fillRainbowBase}
-                >
-                  にじいろにおまかせでぬる
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => setStep(2)}
-                >
-                  つぎへ（くろくぬる） ▶
-                </button>
-              </>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => setStep(2)}
+              >
+                つぎへ（くろくぬる） ▶
+              </button>
             )}
 
             {step === 2 && (
@@ -345,13 +336,6 @@ export function App() {
                   onClick={() => setStep(1)}
                 >
                   ◀ もどる
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-sub"
-                  onClick={fillAllBlack}
-                >
-                  いっきにまっくろにぬる
                 </button>
                 <button
                   type="button"
@@ -416,6 +400,15 @@ export function App() {
           {step === 1 && (
             <div className="panel-content">
               <h2>16しょく クレヨン</h2>
+
+              <button
+                type="button"
+                className="btn btn-sub panel-auto-btn"
+                onClick={fillRainbowBase}
+              >
+                にじいろにおまかせでぬる
+              </button>
+
               <div className="crayon-grid">
                 {CRAYON_COLORS.map((crayon) => {
                   const isSelected = selectedColor === crayon.hex;
@@ -462,6 +455,15 @@ export function App() {
           {step === 2 && (
             <div className="panel-content">
               <h2>くろいクレヨン</h2>
+
+              <button
+                type="button"
+                className="btn btn-sub panel-auto-btn"
+                onClick={fillAllBlack}
+              >
+                いっきにまっくろにぬる
+              </button>
+
               <div className="black-crayon-showcase">
                 <div className="black-crayon-visual">
                   <span className="crayon-tip black" />
