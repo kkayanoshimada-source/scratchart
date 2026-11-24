@@ -1,0 +1,478 @@
+/* 子ども向けクレヨンをテーマにした優しくカラフルなパステル背景とレスポンシブ設計 */
+:root {
+  --bg-cream: #FFFDF7;
+  --bg-dot: #F4EAD5;
+  --card-bg: #FFFFFF;
+  --text-main: #3B332B;
+  --text-sub: #6E6256;
+  --accent-coral: #FF6B6B;
+  --accent-yellow: #FFD166;
+  --accent-mint: #06D6A0;
+  --accent-blue: #4EA8DE;
+  --border-soft: #EDE3D2;
+  --shadow-soft: 0 8px 24px rgba(85, 65, 40, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Hiragino Maru Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-cream);
+  background-image:
+    radial-gradient(var(--bg-dot) 2px, transparent 2px),
+    radial-gradient(#FFE5EC 2px, var(--bg-cream) 2px);
+  background-size: 36px 36px;
+  background-position: 0 0, 18px 18px;
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 16px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ヘッダー */
+.app-header {
+  background: var(--card-bg);
+  border: 3px solid var(--border-soft);
+  border-radius: 24px;
+  padding: 14px 22px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.title-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge {
+  background: linear-gradient(135deg, #FF924C, #FFCA3A);
+  color: #3B332B;
+  font-weight: 800;
+  font-size: 0.78rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+.title-area h1 {
+  margin: 0;
+  font-size: 1.45rem;
+  letter-spacing: 0.03em;
+  color: var(--text-main);
+}
+
+/* 3ステップ進行バー */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid var(--border-soft);
+  background: #FAF6EE;
+  color: var(--text-sub);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.step-pill .step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #E5DAC8;
+  color: var(--text-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+}
+
+.step-pill.done {
+  border-color: var(--accent-mint);
+  background: #EBFBF5;
+  color: #16654E;
+}
+
+.step-pill.done .step-num {
+  background: var(--accent-mint);
+  color: #FFFFFF;
+}
+
+.step-pill.active {
+  border-color: var(--accent-coral);
+  background: #FFF0F0;
+  color: #B91C1C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(255, 107, 107, 0.2);
+}
+
+.step-pill.active .step-num {
+  background: var(--accent-coral);
+  color: #FFFFFF;
+}
+
+.step-arrow {
+  color: #C7B9A5;
+  font-size: 0.75rem;
+}
+
+/* メインレイアウト */
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* 画用紙セクション */
+.canvas-section {
+  background: var(--card-bg);
+  border: 3px solid var(--border-soft);
+  border-radius: 24px;
+  padding: 16px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.instruction-banner {
+  background: linear-gradient(90deg, #FFF7D6, #EBF8FF);
+  border-radius: 14px;
+  padding: 10px 16px;
+  border: 2px dashed #F4D58D;
+}
+
+.instruction-banner p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.canvas-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 800 / 540;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 4px solid #E8DEC8;
+  background: #FFFFFF;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.06);
+  touch-action: none; /* スマホ・タブレットでの画面スクロール誤作動を防止 */
+}
+
+.drawing-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.base-layer {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.top-layer {
+  z-index: 2;
+}
+
+/* 工程ごとのカーソル表現 */
+.step-cursor-1 .top-layer,
+.step-cursor-2 .top-layer {
+  cursor: crosshair;
+}
+
+.step-cursor-3 .top-layer {
+  cursor: cell;
+}
+
+/* 道具箱パネル */
+.tool-panel {
+  background: var(--card-bg);
+  border: 3px solid var(--border-soft);
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.panel-content h2 {
+  margin: 0 0 14px;
+  font-size: 1.15rem;
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 2px dashed var(--border-soft);
+}
+
+/* 16色クレヨングリッド */
+.crayon-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.crayon-btn {
+  display: flex;
+  align-items: center;
+  background: #FAF8F5;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 5px 6px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.crayon-btn:hover {
+  transform: translateX(3px);
+}
+
+.crayon-btn.selected {
+  border-color: var(--text-main);
+  background: #FFF3D1;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.crayon-tip {
+  width: 12px;
+  height: 20px;
+  clip-path: polygon(0 30%, 100% 0, 100% 100%, 0 70%);
+  margin-right: 2px;
+  flex-shrink: 0;
+}
+
+.crayon-body {
+  flex: 1;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.crayon-label {
+  background: rgba(255, 255, 255, 0.88);
+  color: #2B2623;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* 黒クレヨン＆ひっかき棒ビジュアル */
+.black-crayon-showcase,
+.scratch-stick-showcase {
+  background: #FAF6EE;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.black-crayon-visual {
+  display: inline-flex;
+  align-items: center;
+  width: 150px;
+  margin-bottom: 8px;
+}
+
+.crayon-tip.black {
+  background: #1C1C21;
+  height: 24px;
+  width: 16px;
+}
+
+.crayon-body.black {
+  background: #1C1C21;
+  height: 28px;
+}
+
+.scratch-stick-visual {
+  width: 160px;
+  height: 14px;
+  margin: 8px auto 12px;
+  background: linear-gradient(90deg, #E6B87D 0%, #D49B54 82%, #F3D5A5 83%, #B87D3B 100%);
+  clip-path: polygon(0 15%, 82% 15%, 100% 50%, 82% 85%, 0 85%);
+  border-radius: 4px;
+}
+
+.helper-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-sub);
+  line-height: 1.5;
+}
+
+/* スライダー・プリセット */
+.slider-box {
+  background: #FAF6EE;
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.slider-box label {
+  display: block;
+  font-size: 0.88rem;
+  margin-bottom: 8px;
+}
+
+.slider-box input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent-coral);
+  cursor: pointer;
+}
+
+.preset-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.chip-btn {
+  flex: 1;
+  border: 1.5px solid #D8CBB8;
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 5px 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text-main);
+}
+
+.chip-btn.active {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: #FFFFFF;
+}
+
+/* ボタン群 */
+.action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.94;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.btn-sub {
+  background: #E0F2FE;
+  color: #0369A1;
+  border: 2px solid #BAE6FD;
+}
+
+.btn-save {
+  background: linear-gradient(135deg, #06D6A0, #1B9AAA);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(6, 214, 160, 0.3);
+}
+
+.btn-ghost {
+  background: #F3EFE6;
+  color: var(--text-sub);
+}
+
+.panel-footer {
+  border-top: 2px dashed var(--border-soft);
+  padding-top: 12px;
+}
+
+.btn-reset {
+  background: transparent;
+  color: #8C7D6B;
+  border: 2px solid #E5DAC8;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+}
+
+/* レスポンシブ対応（タブレット・スマホ） */
+@media (max-width: 960px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .crayon-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .app-container {
+    padding: 10px 12px 24px;
+  }
+
+  .app-header {
+    padding: 12px 14px;
+    border-radius: 18px;
+  }
+
+  .title-area h1 {
+    font-size: 1.2rem;
+  }
+
+  .step-pill {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+
+  .step-arrow {
+    display: none;
+  }
+
+  .crayon-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
