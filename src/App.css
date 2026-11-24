@@ -173,6 +173,25 @@ body {
   line-height: 1.5;
 }
 
+/* ステップ案内直下のアクションボタンバー */
+.top-action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-action-bar .btn {
+  width: auto;
+  flex: 1 1 auto;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+}
+
+.top-action-bar .btn-reset {
+  flex: 0 1 auto;
+}
+
 .canvas-frame {
   position: relative;
   width: 100%;
@@ -221,8 +240,7 @@ body {
   box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 18px;
+  gap: 14px;
 }
 
 .panel-content h2 {
@@ -340,7 +358,6 @@ body {
   background: #FAF6EE;
   border-radius: 14px;
   padding: 12px 14px;
-  margin-bottom: 16px;
 }
 
 .slider-box label {
@@ -379,22 +396,16 @@ body {
   color: #FFFFFF;
 }
 
-/* ボタン群 */
-.action-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
+/* ボタン共通デザイン */
 .btn {
-  width: 100%;
   border: none;
   border-radius: 14px;
-  padding: 12px 16px;
-  font-size: 0.95rem;
+  padding: 11px 16px;
+  font-size: 0.92rem;
   font-weight: 800;
   cursor: pointer;
   transition: transform 0.15s ease, opacity 0.15s ease;
+  white-space: nowrap;
 }
 
 .btn:hover {
@@ -425,17 +436,10 @@ body {
   color: var(--text-sub);
 }
 
-.panel-footer {
-  border-top: 2px dashed var(--border-soft);
-  padding-top: 12px;
-}
-
 .btn-reset {
-  background: transparent;
+  background: #FFFFFF;
   color: #8C7D6B;
   border: 2px solid #E5DAC8;
-  font-size: 0.85rem;
-  padding: 8px 12px;
 }
 
 /* レスポンシブ対応（タブレット・スマホ） */
@@ -470,6 +474,15 @@ body {
 
   .step-arrow {
     display: none;
+  }
+
+  .top-action-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .top-action-bar .btn {
+    width: 100%;
   }
 
   .crayon-grid {

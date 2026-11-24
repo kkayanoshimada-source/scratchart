@@ -316,6 +316,81 @@ export function App() {
             )}
           </div>
 
+          {/* ステップ案内バナー直下のアクションボタンバー */}
+          <div className="top-action-bar">
+            {step === 1 && (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-sub"
+                  onClick={fillRainbowBase}
+                >
+                  にじいろにおまかせでぬる
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => setStep(2)}
+                >
+                  つぎへ（くろくぬる） ▶
+                </button>
+              </>
+            )}
+
+            {step === 2 && (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-ghost"
+                  onClick={() => setStep(1)}
+                >
+                  ◀ もどる
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sub"
+                  onClick={fillAllBlack}
+                >
+                  いっきにまっくろにぬる
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => setStep(3)}
+                >
+                  つぎへ（ひっかいてけずる） ▶
+                </button>
+              </>
+            )}
+
+            {step === 3 && (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-ghost"
+                  onClick={() => setStep(2)}
+                >
+                  ◀ もどる
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-save"
+                  onClick={handleDownload}
+                >
+                  さくひんをほぞんする（PNG）
+                </button>
+              </>
+            )}
+
+            <button
+              type="button"
+              className="btn btn-reset"
+              onClick={handleReset}
+            >
+              はじめからやりなおす
+            </button>
+          </div>
+
           <div className={`canvas-frame step-cursor-${step}`}>
             <canvas
               ref={baseCanvasRef}
@@ -381,23 +456,6 @@ export function App() {
                   onChange={(e) => setBrushSize(Number(e.target.value))}
                 />
               </div>
-
-              <div className="action-stack">
-                <button
-                  type="button"
-                  className="btn btn-sub"
-                  onClick={fillRainbowBase}
-                >
-                  にじいろにおまかせでぬる
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => setStep(2)}
-                >
-                  つぎへ（くろくぬる） ▶
-                </button>
-              </div>
             </div>
           )}
 
@@ -428,30 +486,6 @@ export function App() {
                   value={Math.max(brushSize, 36)}
                   onChange={(e) => setBrushSize(Number(e.target.value))}
                 />
-              </div>
-
-              <div className="action-stack">
-                <button
-                  type="button"
-                  className="btn btn-sub"
-                  onClick={fillAllBlack}
-                >
-                  いっきにまっくろにぬる
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => setStep(3)}
-                >
-                  つぎへ（ひっかいてけずる） ▶
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-ghost"
-                  onClick={() => setStep(1)}
-                >
-                  ◀ いろぬりにもどる
-                </button>
               </div>
             </div>
           )}
@@ -503,35 +537,8 @@ export function App() {
                   </button>
                 </div>
               </div>
-
-              <div className="action-stack">
-                <button
-                  type="button"
-                  className="btn btn-save"
-                  onClick={handleDownload}
-                >
-                  さくひんをほぞんする（PNG）
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-ghost"
-                  onClick={() => setStep(2)}
-                >
-                  ◀ くろぬりにもどる
-                </button>
-              </div>
             </div>
           )}
-
-          <div className="panel-footer">
-            <button
-              type="button"
-              className="btn btn-reset"
-              onClick={handleReset}
-            >
-              はじめからやりなおす
-            </button>
-          </div>
         </aside>
       </main>
     </div>
