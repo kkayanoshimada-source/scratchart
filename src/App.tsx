@@ -257,41 +257,51 @@ export function App() {
 
   return (
     <div className="app-container">
-      {/* ヘッダー＆3ステップ進行バー */}
+      {/* ヘッダー＆3ステップ進行バー＆リセットボタン */}
       <header className="app-header">
         <div className="title-area">
           <span className="badge">おえかきスタジオ</span>
           <h1>にじいろ ひっかきえ</h1>
         </div>
 
-        <nav className="stepper" aria-label="制作ステップ">
+        <div className="header-controls">
+          <nav className="stepper" aria-label="制作ステップ">
+            <button
+              type="button"
+              className={`step-pill ${step === 1 ? 'active' : ''} ${step > 1 ? 'done' : ''}`}
+              onClick={() => setStep(1)}
+            >
+              <span className="step-num">1</span>
+              <span className="step-label">いろをぬる</span>
+            </button>
+            <span className="step-arrow">▶</span>
+            <button
+              type="button"
+              className={`step-pill ${step === 2 ? 'active' : ''} ${step > 2 ? 'done' : ''}`}
+              onClick={() => setStep(2)}
+            >
+              <span className="step-num">2</span>
+              <span className="step-label">くろくぬる</span>
+            </button>
+            <span className="step-arrow">▶</span>
+            <button
+              type="button"
+              className={`step-pill ${step === 3 ? 'active' : ''}`}
+              onClick={() => setStep(3)}
+            >
+              <span className="step-num">3</span>
+              <span className="step-label">ひっかいてけずる</span>
+            </button>
+          </nav>
+
           <button
             type="button"
-            className={`step-pill ${step === 1 ? 'active' : ''} ${step > 1 ? 'done' : ''}`}
-            onClick={() => setStep(1)}
+            className="btn btn-reset header-reset-btn"
+            onClick={handleReset}
           >
-            <span className="step-num">1</span>
-            <span className="step-label">いろをぬる</span>
+            はじめからやりなおす
           </button>
-          <span className="step-arrow">▶</span>
-          <button
-            type="button"
-            className={`step-pill ${step === 2 ? 'active' : ''} ${step > 2 ? 'done' : ''}`}
-            onClick={() => setStep(2)}
-          >
-            <span className="step-num">2</span>
-            <span className="step-label">くろくぬる</span>
-          </button>
-          <span className="step-arrow">▶</span>
-          <button
-            type="button"
-            className={`step-pill ${step === 3 ? 'active' : ''}`}
-            onClick={() => setStep(3)}
-          >
-            <span className="step-num">3</span>
-            <span className="step-label">ひっかいてけずる</span>
-          </button>
-        </nav>
+        </div>
       </header>
 
       {/* メインワークスペース */}
@@ -316,7 +326,7 @@ export function App() {
             )}
           </div>
 
-          {/* ステップ案内バナー直下のアクションボタンバー（常に1段横並び・ボタン内折り返し） */}
+          {/* ステップ案内バナー直下のアクションボタンバー（最大3ボタンで常に1段横並び） */}
           <div className="top-action-bar">
             {step === 1 && (
               <>
@@ -325,14 +335,14 @@ export function App() {
                   className="btn btn-sub"
                   onClick={fillRainbowBase}
                 >
-                  にじいろに<wbr />おまかせでぬる
+                  にじいろにおまかせでぬる
                 </button>
                 <button
                   type="button"
                   className="btn btn-primary"
                   onClick={() => setStep(2)}
                 >
-                  つぎへ<wbr />（くろくぬる） ▶
+                  つぎへ（くろくぬる） ▶
                 </button>
               </>
             )}
@@ -351,14 +361,14 @@ export function App() {
                   className="btn btn-sub"
                   onClick={fillAllBlack}
                 >
-                  いっきに<wbr />まっくろにぬる
+                  いっきにまっくろにぬる
                 </button>
                 <button
                   type="button"
                   className="btn btn-primary"
                   onClick={() => setStep(3)}
                 >
-                  つぎへ<wbr />（ひっかいてけずる） ▶
+                  つぎへ（ひっかいてけずる） ▶
                 </button>
               </>
             )}
@@ -377,18 +387,10 @@ export function App() {
                   className="btn btn-save"
                   onClick={handleDownload}
                 >
-                  さくひんを<wbr />ほぞんする（PNG）
+                  さくひんをほぞんする（PNG）
                 </button>
               </>
             )}
-
-            <button
-              type="button"
-              className="btn btn-reset"
-              onClick={handleReset}
-            >
-              はじめから<wbr />やりなおす
-            </button>
           </div>
 
           <div className={`canvas-frame step-cursor-${step}`}>
