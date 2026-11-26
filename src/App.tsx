@@ -316,16 +316,25 @@ export function App() {
             )}
           </div>
 
-          {/* ステップ案内バナー直下のアクションボタンバー */}
+          {/* ステップ案内バナー直下のアクションボタンバー（常に1段横並び・ボタン内折り返し） */}
           <div className="top-action-bar">
             {step === 1 && (
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => setStep(2)}
-              >
-                つぎへ（くろくぬる） ▶
-              </button>
+              <>
+                <button
+                  type="button"
+                  className="btn btn-sub"
+                  onClick={fillRainbowBase}
+                >
+                  にじいろに<wbr />おまかせでぬる
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => setStep(2)}
+                >
+                  つぎへ<wbr />（くろくぬる） ▶
+                </button>
+              </>
             )}
 
             {step === 2 && (
@@ -339,10 +348,17 @@ export function App() {
                 </button>
                 <button
                   type="button"
+                  className="btn btn-sub"
+                  onClick={fillAllBlack}
+                >
+                  いっきに<wbr />まっくろにぬる
+                </button>
+                <button
+                  type="button"
                   className="btn btn-primary"
                   onClick={() => setStep(3)}
                 >
-                  つぎへ（ひっかいてけずる） ▶
+                  つぎへ<wbr />（ひっかいてけずる） ▶
                 </button>
               </>
             )}
@@ -361,7 +377,7 @@ export function App() {
                   className="btn btn-save"
                   onClick={handleDownload}
                 >
-                  さくひんをほぞんする（PNG）
+                  さくひんを<wbr />ほぞんする（PNG）
                 </button>
               </>
             )}
@@ -371,7 +387,7 @@ export function App() {
               className="btn btn-reset"
               onClick={handleReset}
             >
-              はじめからやりなおす
+              はじめから<wbr />やりなおす
             </button>
           </div>
 
@@ -400,15 +416,6 @@ export function App() {
           {step === 1 && (
             <div className="panel-content">
               <h2>16しょく クレヨン</h2>
-
-              <button
-                type="button"
-                className="btn btn-sub panel-auto-btn"
-                onClick={fillRainbowBase}
-              >
-                にじいろにおまかせでぬる
-              </button>
-
               <div className="crayon-grid">
                 {CRAYON_COLORS.map((crayon) => {
                   const isSelected = selectedColor === crayon.hex;
@@ -455,15 +462,6 @@ export function App() {
           {step === 2 && (
             <div className="panel-content">
               <h2>くろいクレヨン</h2>
-
-              <button
-                type="button"
-                className="btn btn-sub panel-auto-btn"
-                onClick={fillAllBlack}
-              >
-                いっきにまっくろにぬる
-              </button>
-
               <div className="black-crayon-showcase">
                 <div className="black-crayon-visual">
                   <span className="crayon-tip black" />
