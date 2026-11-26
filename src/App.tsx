@@ -299,7 +299,7 @@ export function App() {
             className="btn btn-reset header-reset-btn"
             onClick={handleReset}
           >
-            🔄やりなおし
+            ◀◀ リセット
           </button>
         </div>
       </header>
