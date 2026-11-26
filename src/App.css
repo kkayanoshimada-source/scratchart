@@ -154,6 +154,7 @@ body {
   padding: 7px 14px;
   font-size: 0.82rem;
   border-radius: 999px;
+  ;
 }
 
 /* メインレイアウト */
@@ -467,9 +468,9 @@ body {
 }
 
 .btn-reset {
-  background: #FFFFFF;
-  color: #8C7D6B;
-  border: 2px solid #E5DAC8;
+  background: #9AEAD8;
+  color: #0E5D4C;
+  border: 2px solid #1CBA90;
 }
 
 /* レスポンシブ対応（タブレット・スマホ） */
@@ -497,6 +498,19 @@ body {
     font-size: 1.2rem;
   }
 
+  /* ステップ群とリセットボタンをスマホでも横並び・折り返し可能にする */
+  .header-controls {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stepper {
+    display: contents; /* 子要素の step-pill を header-controls の直接の並び対象にする */
+  }
+
   .step-pill {
     padding: 5px 10px;
     font-size: 0.8rem;
@@ -504,6 +518,11 @@ body {
 
   .step-arrow {
     display: none;
+  }
+
+  .header-reset-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
   }
 
   .top-action-bar {

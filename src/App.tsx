@@ -290,7 +290,7 @@ export function App() {
               onClick={() => setStep(3)}
             >
               <span className="step-num">3</span>
-              <span className="step-label">ひっかいてけずる</span>
+              <span className="step-label">けずる</span>
             </button>
           </nav>
 
@@ -299,7 +299,7 @@ export function App() {
             className="btn btn-reset header-reset-btn"
             onClick={handleReset}
           >
-            はじめからやりなおす
+            🔄やりなおし
           </button>
         </div>
       </header>
